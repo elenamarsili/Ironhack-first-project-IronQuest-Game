@@ -8,6 +8,7 @@ class Game {
         this.drawCount = 0
         this.background = new Background(this.ctx)
         this.character = new Character(this.ctx)
+        this.block = new Block(this.ctx)
     }
 
     startGame() {
@@ -25,12 +26,31 @@ class Game {
 
     move() {
         this.character.move()
+        this.block.move()
+        if (this.isLanded()) {
+            this.character.y = this.block.y - this.character.h
+            this.character.x = this.block.x + this.block.w/2
+            this.character.y0 = this.character.y
+            this.character.vy = 0
+            if (this.character.x >= this.ctx.canvas.width) {
+                this.character.x = -this.character.w
+            }
+        }
     }
 
     draw() {
         this.background.draw()
         this.character.draw()
+        this.block.draw()
     }
+
+    isLanded() {
+        return (this.character.y + this.character.h >= this.block.y &&
+            this.character.y + this.character.h <= this.block.y + this.block.h &&
+            this.character.x + this.character.w >= this.block.x &&
+            this.character.x <= this.block.x + this.block.w &&
+            this.character.y < this.block.y )
+      }
 
     onKeyEvent(event) {
         this.character.onKeyEvent(event)

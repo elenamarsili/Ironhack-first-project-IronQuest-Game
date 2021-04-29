@@ -14,15 +14,16 @@ class Character {
 
     this.ay = 0
 
-    this.g = 0
+    this.g = 0.4
 
-    /*  this.isJumping = false */
+    this.jumping = false
 
     this.img = new Image()
     this.img.drawCount = 0
     this.img.frames = 9
     this.img.frameIndex = 0
-    this.img.src = "./assets/img/girlsprite.png"
+    this.img.heightIndex = 0
+    this.img.src = "./assets/img/girlsprite2.png"
 
   }
 
@@ -31,22 +32,24 @@ class Character {
       switch (event.keyCode) {
         case KEY_RIGHT:
           if (this.x < this.ctx.canvas.width - this.w) {
-            this.vx = 2
+            this.vx = 4
+            this.img.heightIndex = 0
           } else {
             this.vx = 0
           } 
           break;
         case KEY_LEFT:
           if (this.x >= 0) {
-            this.vx = -2
+            this.vx = -4
+            this.img.heightIndex = this.img.height / 2
           } else {
             this.vx = 0
           }
           break;
         case KEY_UP:
-          this.vy = -2;
-          this.ay = -2;
-          this.g = 0.4;
+          if(!this.isJumping()) {
+            this.vy = -12
+          }
           break;
       }
     } else {
@@ -57,19 +60,16 @@ class Character {
         case KEY_LEFT:
           this.vx = 0
           break;
-        case KEY_UP:
-          this.vy = 0
-          this.ay = 0;
-          this.g = 0;
-          break;
       }
     }
   }
 
   isJumping() {
-    /* return this.y < this.y0 */
+    return this.y < this.y0
   }
 
+  
+  
   draw() {
     this.img.drawCount++
 
@@ -81,42 +81,41 @@ class Character {
     this.ctx.drawImage(
       this.img,
       this.img.frameIndex * this.img.width / this.img.frames,
-      0,
+      this.img.heightIndex, //aqui poner valor 0 si va a la derecha o char.h si va a la izquierda
       this.img.width / this.img.frames,
-      this.img.height,
+      this.img.height/2,
       this.x,
       this.y,
       this.w,
       this.h
     )
+
   }
 
   move() {
+    if (this.isJumping()) {
+      this.vy += this.g
+    }    
+    
     this.x += this.vx
-    this.y += this.vy
-    this.vy += this.ay
-    this.vy += this.g    
+    this.y += this.vy   
+  
+    if (!this.isJumping()) {
+      this.vy = 0
+      this.y = this.y0
+    }  
     
-    
-        /* if (this.isJumping()) {
-            this.vy += this.g
-        }
 
-        if (!this.isJumping()) {
-            this.vy = 0
-            this.y = this.y0
-        }   
-
-        this.bullets.forEach(b => b.move())   */
+/*         this.bullets.forEach(b => b.move())   */ 
   }
 
   animate() {
-   if (this.vx !== 0 || this.vy !== 0) { 
+   if ((this.vx !== 0 || this.vy !== 0) && !this.isJumping()) { 
       this.img.frameIndex++
       if (this.img.frameIndex >= this.img.frames) {
         this.img.frameIndex = 1
       }
-    } else if (this.vx === 0 && this.vy === 0) { 
+    } else { 
         this.img.frameIndex = 0
       }
     }
