@@ -9,6 +9,7 @@ body {
 
 canvas {
     margin-top: 10%;
+    background-image: url("./../img/start.png");
 }
 
 body button {
