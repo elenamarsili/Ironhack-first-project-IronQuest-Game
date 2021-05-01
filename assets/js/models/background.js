@@ -2,8 +2,7 @@ class Background {
     constructor(ctx) {
         this.ctx = ctx
 
-        this.x = 0
-        this.y = 0
+        this.y = 1439
 
         this.h = this.ctx.canvas.height
         this.w = this.ctx.canvas.width
@@ -13,22 +12,25 @@ class Background {
         this.img.src = "./assets/img/background2.png"
     }
 
-draw() {
-    this.ctx.drawImage(
-        this.img, 
-        0, 
-        1439, 
-        640, 
-        480, 
-        0, 
-        0, 
-        640, 
-        480
+    draw() {
+        this.ctx.drawImage(
+            this.img,
+            0,
+            1185 + this.y,
+            640,
+            480,
+            0,
+            0,
+            640,
+            480
         )
-}
+    }
 
-move() {
+    move(character) {
+        this.y = character.y - character.h
+    }
 
-}
+
+
 
 }

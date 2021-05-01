@@ -28,7 +28,6 @@ class Game {
             this.draw()
             this.checkCollisions()
         }, 1000 / 60)
-
     }
 
     clear() {
@@ -37,7 +36,8 @@ class Game {
 
     move() {
         this.character.move()
-        this.blocks.forEach((block) => block.move()) 
+        this.blocks.forEach((block) => block.move(this.character)) 
+        this.background.move(this.character)
     }
 
     draw() {
@@ -69,6 +69,9 @@ class Game {
         
         if (landingBlock) {
             this.character.follow(landingBlock)
+        } else {
+            this.character.y0 = 335
+            this.character.followingBlock = undefined
         }
     }
 

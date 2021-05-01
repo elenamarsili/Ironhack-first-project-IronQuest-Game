@@ -62,7 +62,7 @@ class Character {
           if(!this.isJumping()) {
             this.followingBlock = undefined
             this.y0 = 335
-            this.vy = -12
+            this.vy = -7
           }
           break;
       }
@@ -88,7 +88,6 @@ class Character {
       this.x + this.w >= block.x &&
       this.x <= block.x + block.w &&
       this.y < block.y) 
-      
 
       return collide
   }
@@ -135,7 +134,6 @@ class Character {
   move() {
     if (this.isJumping()) {
       this.vy += this.g
-
     }    
     
     this.x += this.vx
