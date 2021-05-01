@@ -37,20 +37,36 @@ class Game {
 
     move() {
         this.character.move()
-        this.blocks.forEach((block) => block.move())
+        this.blocks.forEach((block) => block.move()) 
     }
 
     draw() {
         this.background.draw()
         this.character.draw()
-        this.blocks.forEach((block) => block.draw())
+        this.blocks.forEach(block => block.draw())
+
+
+/*         if (this.character.y <= this.ctx.canvas.height / 2) {
+            this.blocks.forEach(block => {
+                block.y = block.y + 157
+                return block.draw()
+            })
+        } */
+        
+        /*         if (this.character.collidesWithBlock()) {
+            this.blocks.forEach((block) => {
+                block.x += 157
+            })
+        } */
     }
+
+
 
     checkCollisions() { 
         const landingBlock = this.blocks.find(block => {
             return this.character.collidesWithBlock(block)
         }) 
-
+        
         if (landingBlock) {
             this.character.follow(landingBlock)
         }

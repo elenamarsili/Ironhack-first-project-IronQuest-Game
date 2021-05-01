@@ -25,7 +25,7 @@ class Character {
     this.img.heightIndex = 0
     this.img.src = "./assets/img/girlsprite.png"
 
-    this.followinBlock = null
+    this.followingBlock = null
 
   }
 
@@ -39,6 +39,11 @@ class Character {
           } else {
             this.vx = 0
           } 
+/*           if (this.followingBlock) {
+            if (this.x > block.x + block.w){
+              this.vy = 2
+              this.y += this.vy */
+          
           break;
         case KEY_LEFT:
           if (this.x >= 0) {
@@ -47,10 +52,16 @@ class Character {
           } else {
             this.vx = 0
           }
+/*           if (this.followingBlock) {
+            if (this.x + this.w < block.x){
+              this.vy = 2
+              this.y += this.vy */
+          
           break;
         case KEY_UP:
           if(!this.isJumping()) {
             this.followingBlock = undefined
+            this.y0 = 335
             this.vy = -12
           }
           break;
@@ -72,21 +83,30 @@ class Character {
   }
 
   collidesWithBlock(block){
-    return (this.y + this.h >= block.y &&
+    const collide =  (this.y + this.h >= block.y &&
       this.y + this.h <= block.y + block.h &&
       this.x + this.w >= block.x &&
       this.x <= block.x + block.w &&
       this.y < block.y) 
+      
+
+      return collide
   }
   
   follow(block) {
-    this.followingBlock = block
-    this.y = block.y - this.h
-    this.y0 = this.y
-    this.vy = 0
-    if (this.x >= this.ctx.canvas.width) {
+    
+      this.followingBlock = block
+      this.y = block.y - this.h
+      this.y0 = this.y
+      this.vy = 0
+  
+  
+/*     if (this.x + this.w < block.x || this.x > block.x + block.w){
+        this.vy = 2
+        
+/*     if (this.x >= this.ctx.canvas.width) { //cuando tenga todo arreglado volveré a intentar que de la vuelta a la montaña
          this.x = -this.w
-    }
+    } */
   }
 
 
