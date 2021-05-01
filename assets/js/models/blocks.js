@@ -1,17 +1,17 @@
 class Block {
-    constructor (ctx) {
+    constructor (ctx, y, vx) {
         this.ctx = ctx;
 
-        this.h = 63
+        this.h = 19
         this.w = 254
 
         this.x = 0
-        this.y = 250
+        this.y = y
 
-        this.vx = 3
+        this.vx = vx 
 
         this.img = new Image()
-        this.img.src = "./assets/img/tile-1.png"
+        this.img.src = "./assets/img/tile.png"
     }
 
     draw() {
@@ -30,12 +30,5 @@ class Block {
         if (this.x >= this.ctx.canvas.width) {
             this.x = -this.w
         }
-/*         if (this.x + this.w >= this.ctx.canvas.width) {
-            this.vx *= -1
-        }
-      
-        if (this.x <= 0) {
-            this.vx *= -1
-        } */
     }
 }

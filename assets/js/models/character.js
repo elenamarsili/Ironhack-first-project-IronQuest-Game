@@ -23,7 +23,9 @@ class Character {
     this.img.frames = 9
     this.img.frameIndex = 0
     this.img.heightIndex = 0
-    this.img.src = "./assets/img/girlsprite2.png"
+    this.img.src = "./assets/img/girlsprite.png"
+
+    this.followinBlock = null
 
   }
 
@@ -48,6 +50,7 @@ class Character {
           break;
         case KEY_UP:
           if(!this.isJumping()) {
+            this.followingBlock = undefined
             this.vy = -12
           }
           break;
@@ -68,8 +71,25 @@ class Character {
     return this.y < this.y0
   }
 
+  collidesWithBlock(block){
+    return (this.y + this.h >= block.y &&
+      this.y + this.h <= block.y + block.h &&
+      this.x + this.w >= block.x &&
+      this.x <= block.x + block.w &&
+      this.y < block.y) 
+  }
   
-  
+  follow(block) {
+    this.followingBlock = block
+    this.y = block.y - this.h
+    this.y0 = this.y
+    this.vy = 0
+    if (this.x >= this.ctx.canvas.width) {
+         this.x = -this.w
+    }
+  }
+
+
   draw() {
     this.img.drawCount++
 
@@ -81,7 +101,7 @@ class Character {
     this.ctx.drawImage(
       this.img,
       this.img.frameIndex * this.img.width / this.img.frames,
-      this.img.heightIndex, //aqui poner valor 0 si va a la derecha o char.h si va a la izquierda
+      this.img.heightIndex, 
       this.img.width / this.img.frames,
       this.img.height/2,
       this.x,
@@ -95,6 +115,7 @@ class Character {
   move() {
     if (this.isJumping()) {
       this.vy += this.g
+
     }    
     
     this.x += this.vx
@@ -105,8 +126,11 @@ class Character {
       this.y = this.y0
     }  
     
-
-/*         this.bullets.forEach(b => b.move())   */ 
+    if (this.followingBlock) {
+      if (this.vx === 0) {
+        this.x += this.followingBlock.vx
+      }
+    }
   }
 
   animate() {

@@ -8,7 +8,17 @@ class Game {
         this.drawCount = 0
         this.background = new Background(this.ctx)
         this.character = new Character(this.ctx)
-        this.block = new Block(this.ctx)
+        this.block1 = new Block(this.ctx, 259, 3)
+        this.block2 = new Block(this.ctx, 102, 4)
+        this.block3 = new Block(this.ctx, -55, 5)
+        this.block4 = new Block(this.ctx, -212, 6)
+        this.block5 = new Block(this.ctx, -369, 7)
+        this.block6 = new Block(this.ctx, -526, 8)
+        this.block7 = new Block(this.ctx, -683, 9)
+        this.block8 = new Block(this.ctx, -840, 10)
+        this.block9 = new Block(this.ctx, -997, 11)
+        this.block10 = new Block(this.ctx, -1154, 12)
+        this.blocks = [this.block1, this.block2, this.block3, this.block4, this.block5, this.block6, this.block7, this.block8, this.block9, this.block10]
     }
 
     startGame() {
@@ -16,6 +26,7 @@ class Game {
             this.clear()
             this.move()
             this.draw()
+            this.checkCollisions()
         }, 1000 / 60)
 
     }
@@ -26,31 +37,24 @@ class Game {
 
     move() {
         this.character.move()
-        this.block.move()
-        if (this.isLanded()) {
-            this.character.y = this.block.y - this.character.h
-            this.character.x = this.block.x + this.block.w/2
-            this.character.y0 = this.character.y
-            this.character.vy = 0
-            if (this.character.x >= this.ctx.canvas.width) {
-                this.character.x = -this.character.w
-            }
-        }
+        this.blocks.forEach((block) => block.move())
     }
 
     draw() {
         this.background.draw()
         this.character.draw()
-        this.block.draw()
+        this.blocks.forEach((block) => block.draw())
     }
 
-    isLanded() {
-        return (this.character.y + this.character.h >= this.block.y &&
-            this.character.y + this.character.h <= this.block.y + this.block.h &&
-            this.character.x + this.character.w >= this.block.x &&
-            this.character.x <= this.block.x + this.block.w &&
-            this.character.y < this.block.y )
-      }
+    checkCollisions() { 
+        const landingBlock = this.blocks.find(block => {
+            return this.character.collidesWithBlock(block)
+        }) 
+
+        if (landingBlock) {
+            this.character.follow(landingBlock)
+        }
+    }
 
     onKeyEvent(event) {
         this.character.onKeyEvent(event)
