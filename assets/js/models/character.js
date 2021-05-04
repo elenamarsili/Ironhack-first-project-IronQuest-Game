@@ -6,7 +6,7 @@ class Character {
     this.w = 55
 
     this.x = 0
-    this.y = 335
+    this.y = 575
     this.y0 = this.y
 
     this.vx = 0
@@ -34,7 +34,7 @@ class Character {
       switch (event.keyCode) {
         case KEY_RIGHT:
           if (this.x < this.ctx.canvas.width - this.w) {
-            this.vx = 4
+            this.vx = 5
             this.img.heightIndex = 0
           } else {
             this.vx = 0
@@ -47,7 +47,7 @@ class Character {
           break;
         case KEY_LEFT:
           if (this.x >= 0) {
-            this.vx = -4
+            this.vx = -5
             this.img.heightIndex = this.img.height / 2
           } else {
             this.vx = 0
@@ -61,8 +61,8 @@ class Character {
         case KEY_UP:
           if(!this.isJumping()) {
             this.followingBlock = undefined
-            this.y0 = 335
-            this.vy = -7
+            this.y0 = 575
+            this.vy = -9
           }
           break;
       }
@@ -82,6 +82,11 @@ class Character {
     return this.y < this.y0
   }
 
+  isFalling() {
+    const falling = this.vy > 10 && this.y < 499
+    return falling
+  }
+
   collidesWithBlock(block){
     const collide =  (this.y + this.h >= block.y &&
       this.y + this.h <= block.y + block.h &&
@@ -92,8 +97,17 @@ class Character {
       return collide
   }
   
+  collidesWithCastle(castle){
+    const collide =  (this.y + this.h <= castle.y + castle.h &&
+      this.y + this.h >= castle.y &&
+      this.x + this.w >= castle.x &&
+      this.x <= castle.x + castle.w
+      ) 
+
+      return collide
+  }
+
   follow(block) {
-    
       this.followingBlock = block
       this.y = block.y - this.h
       this.y0 = this.y

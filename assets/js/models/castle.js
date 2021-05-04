@@ -1,22 +1,21 @@
-class Block {
-    constructor (ctx, y, vx) {
+class Castle {
+    constructor (ctx) {
         this.ctx = ctx;
 
-        this.h = 19
-        this.w = 100
+        this.h = 121
+        this.w = 150
 
-        this.x = 0
-        this.y = y
+        this.x = 276
+        this.y = -700
 
-        this.vx = vx 
         this.vy = 0
 
-        this.img = new Image()
-        this.img.src = "./assets/img/tile.png"
+/*         this.img = new Image()
+        this.img.src = "./assets/img/castle.png" */
     }
 
     draw() {
-        this.ctx.drawImage(
+        this.ctx.rect(
             this.img,
             this.x,
             this.y,
@@ -28,17 +27,7 @@ class Block {
     }
 
     move(character) {
-        this.x += this.vx
-
-        if (this.x + this.w >= this.ctx.canvas.width) {
-            this.vx = -this.vx
-        }
-
-        if (this.x <= 0) {
-            this.vx = -this.vx
-        }  
-
-        this.vy = character.vy * -1.5
+        this.vy = character.vy * -1.8
         this.y += this.vy
         
 

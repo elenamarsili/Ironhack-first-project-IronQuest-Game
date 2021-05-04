@@ -2,27 +2,27 @@ class Background {
     constructor(ctx) {
         this.ctx = ctx
 
-        this.y = 1439
+        this.y = 650
 
         this.h = this.ctx.canvas.height
         this.w = this.ctx.canvas.width
 
         this.img = new Image()
 
-        this.img.src = "./assets/img/background2.png"
+        this.img.src = "./assets/img/background7.png"
     }
 
     draw() {
         this.ctx.drawImage(
             this.img,
             0,
-            1185 + this.y,
+            380 + this.y,
             640,
-            480,
+            600,
             0,
             0,
             640,
-            480
+            700
         )
     }
 
