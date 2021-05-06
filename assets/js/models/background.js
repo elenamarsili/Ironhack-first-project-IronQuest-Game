@@ -27,7 +27,10 @@ class Background {
     }
 
     move(character) {
-        this.y = character.y - character.h
+        if (!character.isShrunk()){
+            this.y = character.y - character.h   
+        }
+        
     }
 
 

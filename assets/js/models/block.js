@@ -37,9 +37,11 @@ class Block {
         if (this.x <= 0) {
             this.vx = -this.vx
         }  
-
-        this.vy = character.vy * -1.5
-        this.y += this.vy
+        if(!character.isShrunk()) {
+            this.vy = character.vy * -1.5
+            this.y += this.vy 
+        }
+        
         
 
 

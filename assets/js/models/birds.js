@@ -1,14 +1,14 @@
 class Bird {
-    constructor (ctx, y, vx) {
+    constructor (ctx, y, x) {
         this.ctx = ctx;
 
-        this.h = 51
-        this.w = 51
+        this.h = 35
+        this.w = 35
 
-        this.x = this.ctx.canvas.width - this.w
+        this.x = x
         this.y = y
 
-        this.vx = -vx 
+        this.vx = -3
         this.vy = 0
 
         this.img = new Image()
@@ -16,7 +16,7 @@ class Bird {
         this.img.frames = 14
         this.img.frameIndex = 0
         this.img.heightIndex = 0
-        this.img.src = "./assets/img/birdsprite.png"
+        this.img.src = "./assets/img/birdsprite2.png"
     }
 
     draw() {
@@ -30,9 +30,9 @@ class Bird {
         this.ctx.drawImage(
             this.img,
             this.img.frameIndex * this.img.width / this.img.frames,
-            0, 
+            this.img.heightIndex, 
             this.img.width / this.img.frames,
-            this.img.height,
+            this.img.height / 2,
             this.x,
             this.y,
             this.w,
@@ -51,14 +51,26 @@ class Bird {
             this.vx = -this.vx
         }  
 
-        this.vy = character.vy * -1.5
-        this.y += this.vy        
+
+        if (this.vx > 0) {
+            this.img.heightIndex = this.img.height / 2 
+        }
+
+        if (this.vx < 0) {
+            this.img.heightIndex = 0
+        } 
+        
+        if(!character.isShrunk()) {
+           this.vy = character.vy * -1.5
+            this.y += this.vy  
+        }
+               
     }
 
     animate() { 
            this.img.frameIndex++
            if (this.img.frameIndex >= this.img.frames) {
-             this.img.frameIndex = 0
+             this.img.frameIndex = 0              
            }
     }
  

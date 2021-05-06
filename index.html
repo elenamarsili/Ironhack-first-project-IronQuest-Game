@@ -11,16 +11,32 @@
 </head>
 <body>
     <div>
-        <canvas id="canvas" width="640" height="700"></canvas>
+        <div class="layer" id="start-game">
+            <button id="how-to-play">How to Play?</button>
+            <button id="start-button">Start Game!</button>
+        </div>        
+        <canvas class="layer" id="canvas" width="640" height="700"></canvas>
+        <div class="layer" id="win">
+            <p>
+            CONGRATS! <br> 
+            You found the castle <br> 
+            and completed your quest! <br> 
+            Your time was: <span id="time">00:00</span>!               
+            </p>
+            <button id="replay">Replay</button>
+            <button id="scores">See score board</button>           
+        </div>
+        <div class="layer" id="game-over">
+            <p>Game Over!</p>
+            <button id="replay">Replay</button>
+        </div>
     </div>
-    <div id="buttons">
-        <button id="hot-to-play">How to Play?</button>
-        <button id="start-button">Start Game!</button>
-    </div>
+    
 
-    <script src="assets/js/models/constants.js"></script>  
-<!--     <script src="assets/js/models/score.js"></script>  
-    <script src="assets/js/models/lives.js"></script>   -->
+
+    <script src="assets/js/models/constants.js"></script> 
+    <script src="assets/js/models/timer.js"></script>   
+ <!--    <script src="assets/js/models/lives.js"></script>   -->
     <script src="assets/js/models/birds.js"></script>  
     <script src="assets/js/models/castle.js"></script>
     <script src="assets/js/models/block.js"></script>

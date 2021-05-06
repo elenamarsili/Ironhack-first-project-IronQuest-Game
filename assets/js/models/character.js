@@ -38,12 +38,7 @@ class Character {
             this.img.heightIndex = 0
           } else {
             this.vx = 0
-          } 
-/*           if (this.followingBlock) {
-            if (this.x > block.x + block.w){
-              this.vy = 2
-              this.y += this.vy */
-          
+          }
           break;
         case KEY_LEFT:
           if (this.x >= 0) {
@@ -52,17 +47,20 @@ class Character {
           } else {
             this.vx = 0
           }
-/*           if (this.followingBlock) {
-            if (this.x + this.w < block.x){
-              this.vy = 2
-              this.y += this.vy */
-          
+          break;
+        case KEY_DOWN:
+          if(!this.isShrunk()) {
+            this.y += 81 / 2
+            this.y0 += 81 / 2
+            this.h = 81 / 2
+            this.w = 55 / 2
+          }
           break;
         case KEY_UP:
-          if(!this.isJumping()) {
+          if (!this.isJumping()) {
             this.followingBlock = undefined
             this.y0 = 575
-            this.vy = -9
+            this.vy = -8
           }
           break;
       }
@@ -74,6 +72,10 @@ class Character {
         case KEY_LEFT:
           this.vx = 0
           break;
+        case KEY_DOWN:
+          this.y = this.y - 81 / 2
+          this.h = this.h * 2
+          this.w = this.w * 2
       }
     }
   }
@@ -87,39 +89,61 @@ class Character {
     return falling
   }
 
-  collidesWithBlock(block){
-    const collide =  (this.y + this.h >= block.y &&
+  isShrunk() {
+    if (this.h === 81 / 2)
+      return true
+  }
+
+/*   isFloor() {
+    if (this.y === 575) {
+      return true
+    }
+  } */
+
+  collidesWithBlock(block) {
+    const collide = (this.y + this.h >= block.y &&
       this.y + this.h <= block.y + block.h &&
       this.x + this.w >= block.x &&
       this.x <= block.x + block.w &&
-      this.y < block.y) 
+      this.y < block.y)
 
-      return collide
+    return collide
   }
-  
-  collidesWithCastle(castle){
-    const collide =  (this.y + this.h <= castle.y + castle.h &&
+
+  collidesWithCastle(castle) {
+    const collide = (this.y + this.h <= castle.y + castle.h &&
       this.y + this.h >= castle.y &&
       this.x + this.w >= castle.x &&
       this.x <= castle.x + castle.w
-      ) 
+    )
 
-      return collide
+    return collide
   }
 
+  collidesWithBirds(bird) {
+    if (bird.vx > 0) {
+      const collide = (this.x + this.w >= bird.x &&
+        this.x <= bird.x + bird.w &&
+        this.y <= bird.y + bird.h &&
+        this.y + this.h >= bird.y
+      )
+      return collide
+    }
+    if (bird.vx < 0) {
+      const collide = (bird.x + bird.w >= this.x &&
+        bird.x <= this.x + this.w &&
+        this.y <= bird.y + bird.h &&
+        this.y + this.h >= bird.y
+      )
+      return collide
+    }
+
+  }
   follow(block) {
-      this.followingBlock = block
-      this.y = block.y - this.h
-      this.y0 = this.y
-      this.vy = 0
-  
-  
-/*     if (this.x + this.w < block.x || this.x > block.x + block.w){
-        this.vy = 2
-        
-/*     if (this.x >= this.ctx.canvas.width) { //cuando tenga todo arreglado volveré a intentar que de la vuelta a la montaña
-         this.x = -this.w
-    } */
+    this.followingBlock = block
+    this.y = block.y - this.h
+    this.y0 = this.y
+    this.vy = 0
   }
 
 
@@ -134,9 +158,9 @@ class Character {
     this.ctx.drawImage(
       this.img,
       this.img.frameIndex * this.img.width / this.img.frames,
-      this.img.heightIndex, 
+      this.img.heightIndex,
       this.img.width / this.img.frames,
-      this.img.height/2,
+      this.img.height / 2,
       this.x,
       this.y,
       this.w,
@@ -146,18 +170,19 @@ class Character {
   }
 
   move() {
+
     if (this.isJumping()) {
       this.vy += this.g
-    }    
-    
+    }
+
     this.x += this.vx
-    this.y += this.vy   
-  
+    this.y += this.vy
+
     if (!this.isJumping()) {
       this.vy = 0
       this.y = this.y0
-    }  
-    
+    }
+
     if (this.followingBlock) {
       if (this.vx === 0) {
         this.x += this.followingBlock.vx
@@ -166,15 +191,14 @@ class Character {
   }
 
   animate() {
-   if ((this.vx !== 0 || this.vy !== 0) && !this.isJumping()) { 
+    if ((this.vx !== 0 || this.vy !== 0) && !this.isJumping()) {
       this.img.frameIndex++
       if (this.img.frameIndex >= this.img.frames) {
         this.img.frameIndex = 1
       }
-    } else { 
-        this.img.frameIndex = 0
-      }
+    } else {
+      this.img.frameIndex = 0
     }
-
   }
 
+}
