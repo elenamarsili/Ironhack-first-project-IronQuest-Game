@@ -27,7 +27,7 @@ class Character {
 
     this.followingBlock = null;
 
-    this.jumpSound = new Audio('./assets/sounds/jump.wav');
+    this.jumpSound = new Audio('./assets/sounds/jump.mp3');
   }
 
   onKeyEvent(event) {
@@ -58,9 +58,9 @@ class Character {
           }
           break;
         case KEY_UP:
-          if (!this.isJumping()) {
+          if (!this.isJumping()) {            
+            this.jumpSound.play();            
             this.followingBlock = undefined;
-            this.jumpSound.play();
             this.y0 = 575;
             this.vy = -8;
           }
