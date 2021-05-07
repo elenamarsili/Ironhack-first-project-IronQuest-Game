@@ -1,48 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>IronQuest</title>
 </head>
+
 <body>
     <div>
         <div class="layer" id="start-game">
             <button id="how-to-play">How to Play?</button>
             <button id="start-button">Start Game!</button>
-        </div>        
+        </div>
+
         <canvas class="layer" id="canvas" width="640" height="700"></canvas>
+
         <div class="layer" id="win">
             <p>
-            CONGRATS! <br> 
-            You found the castle <br> 
-            and completed your quest! <br> 
-            Your time was: <span id="time">00:00</span>!               
+                CONGRATS! <br>
+                You found the castle <br>
+                and completed your quest! <br>
+                Your time was: <span id="time">00:00</span>!
             </p>
-            <button id="replay">Replay</button>
-            <button id="scores">See score board</button>           
+            <button id="replay-on-win">Replay</button>
+            <button id="scores">See score board</button>
         </div>
+
         <div class="layer" id="game-over">
             <p>Game Over!</p>
-            <button id="replay">Replay</button>
+            <button id="replay-on-game-over">Replay</button>
         </div>
+
+        <div class="layer" id="instructions">
+            <button id="back">Back</button>
+        </div>  
     </div>
-    
 
-
-    <script src="assets/js/models/constants.js"></script> 
-    <script src="assets/js/models/timer.js"></script>   
- <!--    <script src="assets/js/models/lives.js"></script>   -->
-    <script src="assets/js/models/birds.js"></script>  
+    <script src="assets/js/models/constants.js"></script>
+    <script src="assets/js/models/timer.js"></script>
+    <script src="assets/js/models/lives.js"></script>
+    <script src="assets/js/models/birds.js"></script>
     <script src="assets/js/models/castle.js"></script>
     <script src="assets/js/models/block.js"></script>
-    <script src="assets/js/models/character.js"></script>  
-    <script src="assets/js/models/background.js"></script>  
-    <script src="assets/js/models/game.js"></script>  
-    <script src="assets/js/index.js"></script>    
+    <script src="assets/js/models/character.js"></script>
+    <script src="assets/js/models/background.js"></script>
+    <script src="assets/js/models/game.js"></script>
+    <script src="assets/js/index.js"></script>
 </body>
+
 </html>

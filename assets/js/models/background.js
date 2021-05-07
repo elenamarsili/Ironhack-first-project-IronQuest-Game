@@ -1,15 +1,15 @@
 class Background {
     constructor(ctx) {
-        this.ctx = ctx
+        this.ctx = ctx;
 
-        this.y = 650
+        this.y = 650;
 
-        this.h = this.ctx.canvas.height
-        this.w = this.ctx.canvas.width
+        this.h = this.ctx.canvas.height;
+        this.w = this.ctx.canvas.width;
 
-        this.img = new Image()
+        this.img = new Image();
 
-        this.img.src = "./assets/img/background7.png"
+        this.img.src = "./assets/img/background2.png";
     }
 
     draw() {
@@ -27,13 +27,8 @@ class Background {
     }
 
     move(character) {
-        if (!character.isShrunk()){
-            this.y = character.y - character.h   
+        if (!character.isShrunk()) {
+            this.y = character.y - character.h
         }
-        
     }
-
-
-
-
 }

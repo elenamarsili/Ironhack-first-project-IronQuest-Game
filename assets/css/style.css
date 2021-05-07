@@ -1,91 +1,96 @@
 body {
-    background-image: url("../img/background1.png");
-    display: flex;
-    justify-content: center;
+  background-image: url("../img/background1.png");
+  display: flex;
+  justify-content: center;
 }
 
 .layer {
-    width: 640px;
-    height: 700px;
-    border-radius: 5px;
+  width: 640px;
+  height: 700px;
+  border-radius: 5px;
 }
 
 #start-game {
-    background-image: url("./../img/cover3.png");
-    display: block;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
+  background-image: url("./../img/cover.png");
+  display: block;
+/*   display: flex;
+  justify-content: space-around;
+  align-items: flex-end; */
+  text-align: center;
 }
 
 #canvas {
-    background-image: url("./../img/cover3.png");
-    border-radius: 5px;
-    display: none;
+/*   background-image: url("./../img/cover3.png"); */
+  border-radius: 5px;
+  display: none;
 }
 
-#win {    
-    display: none;
-    font-family: Roboto;
-    font-size: 40px;
-    font-weight: 800;
-    color: #AB4787;
-    background-color: #DEEBF0;
-    text-align: center;
-    margin: 20px;
-    padding-top: 100px;
-    box-sizing: border-box;
+#win {
+  display: none;
+  font-family: Roboto;
+  font-size: 40px;
+  font-weight: 800;
+  color: #ab4787;
+  background-color: #deebf0;
+  text-align: center;
+  margin: 20px;
+  padding-top: 100px;
+  box-sizing: border-box;
 }
-
-
 
 #game-over {
-    display: none;
-    font-family: Roboto;
-    font-size: 40px;
-    font-weight: 800;
-    color: #AB4787;
-    background-color: #DEEBF0;   
-    text-align: center;
-    margin: 20px;
-    padding-top: 200px;
-    box-sizing: border-box;
+  display: none;
+  font-family: Roboto;
+  font-size: 40px;
+  font-weight: 800;
+  color: #ab4787;
+  background-color: #deebf0;
+  text-align: center;
+  margin: 20px;
+  padding-top: 200px;
+  box-sizing: border-box;
+}
+
+#instructions {
+  background-image: url("./../img/how-to-play.png");
+  display: none;
+  text-align: center;
 }
 
 button {
-    font-size: 30px;
-    background-color: #AB4787;
-    color: #fff;
-    padding: 20px 40px;
-    border: 0;
-    box-shadow: 0;
-    border-radius: 5px;
-    margin: 20px;
-    box-shadow: 5px 5px 10px rgb(39, 39, 39);
-  }
+  font-size: 30px;
+  background-color: #ab4787;
+  color: #fff;
+  padding: 20px 40px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 5px;
+  margin: 600px 20px 20px 20px;
+  box-shadow: 5px 5px 10px rgb(39, 39, 39);
+}
 
-  #buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    text-align: center;  
-    width: 350px;
-  }
+#buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  width: 350px;
+}
 
-  button:hover {
-    background-color: #fff;
-    color: #AB4787;
-    font-weight: 800;
-  }
+button:hover {
+  background-color: #fff;
+  color: #ab4787;
+  font-weight: 800;
+}
 
-  #timer {
-    width: 200px;
-    height: 80px;
-    font-size: 30px;
-    background-color: #AB4787;
-    color: #fff;
-    padding: 20px 40px;
-    border: 0;
-    border-radius: 5px;  
-  }
+#timer {
+  width: 200px;
+  height: 80px;
+  font-size: 30px;
+  background-color: #ab4787;
+  color: #fff;
+  padding: 20px 40px;
+  border: 0;
+  border-radius: 5px;
+}
