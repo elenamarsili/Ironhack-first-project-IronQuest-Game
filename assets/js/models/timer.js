@@ -28,13 +28,4 @@ class Timer {
             }
         }, 1000);
     }
-
-    pause() {
-        this.time = setInterval(() => {
-            if ((this.seconds+=0) === 60) {
-                this.minutes+=0;
-                this.seconds = 0;
-            }
-        }, 1000);
-    }
 }

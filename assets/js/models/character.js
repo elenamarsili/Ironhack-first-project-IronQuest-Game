@@ -125,7 +125,7 @@ class Character {
 
     if (this.canReceiveDamage && collideX && collideY) {
       this.canReceiveDamage = false
-      setTimeout(() => this.canReceiveDamage = true, 2000)
+      setTimeout(() => this.canReceiveDamage = true, 1000)
       return true
     }
     return false
@@ -189,11 +189,5 @@ class Character {
     } else {
       this.img.frameIndex = 0;
     }
-  }
-
-  pause(){
-    this.vx = 0;
-    this.vy = 0;
-    this.g = 0;
   }
 }

@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let game = new Game('canvas');
   
   game.onGameOver = () => {
-    document.getElementById("canvas").style.display = "none";
+    document.getElementById("canvas-layer").style.display = "none";
     document.getElementById("game-over").style.display = "block";
   }
 
   game.onWin = () => {
-    document.getElementById("canvas").style.display = "none";
+    document.getElementById("canvas-layer").style.display = "none";
     document.getElementById("win").style.display = "block";
     document.getElementById("time").innerText = `${game.timer.twoDigitsNumber(game.timer.minutes)}:${game.timer.twoDigitsNumber(game.timer.seconds)}`;
   }
@@ -15,8 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const startButton = document.getElementById('start-button')
   startButton.addEventListener('click', () => {
     document.getElementById("start-game").style.display = "none";
-    document.getElementById("canvas").style.display = "block";   
+    document.getElementById("canvas-layer").style.display = "block";   
     game.startGame();
+  })
+
+  const pauseButton = document.getElementById('pause')
+  pauseButton.addEventListener('click', () => {
+    game.pauseGame()
   })
 
   const howToPlayButton = document.getElementById('how-to-play')
@@ -34,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const replayOnWinButton = document.getElementById('replay-on-win')
   replayOnWinButton.addEventListener('click', () => {
     document.getElementById("win").style.display = "none";
-    document.getElementById("canvas").style.display = "block";
+    document.getElementById("canvas-layer").style.display = "block";
     game = new Game('canvas');
     game.startGame();
   })
@@ -42,14 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const replayOnGameOverButton = document.getElementById('replay-on-game-over')
   replayOnGameOverButton.addEventListener('click', () => {
     document.getElementById("game-over").style.display = "none";
-    document.getElementById("canvas").style.display = "block";
+    document.getElementById("canvas-layer").style.display = "block";
     game = new Game('canvas');
     game.startGame();
   })
 
   document.addEventListener('keypress', (event) => {
       document.getElementById("start-game").style.display = "none";
-      document.getElementById("canvas").style.display = "block";
+      document.getElementById("canvas-layer").style.display = "block";
       game.startGame();
     }) 
 
