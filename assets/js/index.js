@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const game = new Game('canvas');
+  let game = new Game('canvas');
+  
   game.onGameOver = () => {
     document.getElementById("canvas").style.display = "none";
     document.getElementById("game-over").style.display = "block";
@@ -30,10 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("start-game").style.display = "block";
   })
 
-/*   const replayOnWinButton = document.getElementById('replay-on-win')
+  const replayOnWinButton = document.getElementById('replay-on-win')
   replayOnWinButton.addEventListener('click', () => {
     document.getElementById("win").style.display = "none";
     document.getElementById("canvas").style.display = "block";
+    game = new Game('canvas');
     game.startGame();
   })
 
@@ -41,8 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
   replayOnGameOverButton.addEventListener('click', () => {
     document.getElementById("game-over").style.display = "none";
     document.getElementById("canvas").style.display = "block";
+    game = new Game('canvas');
     game.startGame();
-  }) */
+  })
 
   document.addEventListener('keypress', (event) => {
       document.getElementById("start-game").style.display = "none";

@@ -4,7 +4,6 @@ class Timer {
         this.time = 0;
         this.seconds = 0;
         this.minutes = 0;
-        this.setTimer();
     }
 
     draw() {
@@ -25,6 +24,15 @@ class Timer {
         this.time = setInterval(() => {
             if (++this.seconds === 60) {
                 this.minutes++;
+                this.seconds = 0;
+            }
+        }, 1000);
+    }
+
+    pause() {
+        this.time = setInterval(() => {
+            if ((this.seconds+=0) === 60) {
+                this.minutes+=0;
                 this.seconds = 0;
             }
         }, 1000);

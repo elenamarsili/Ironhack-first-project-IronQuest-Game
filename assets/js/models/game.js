@@ -22,7 +22,7 @@ class Game {
         this.block6 = new Block(this.ctx, -286, 6);
         this.block7 = new Block(this.ctx, -443, 4);
         this.blocks = [this.block1, this.block2, this.block3, this.block4, this.block5, this.block6, this.block7];
-
+        
         this.bird1 = new Bird(this.ctx, 550, 600);
         this.bird2 = new Bird(this.ctx, 393, 400);
         this.bird3 = new Bird(this.ctx, 236, 200);
@@ -37,8 +37,13 @@ class Game {
 
         this.timer = new Timer(this.ctx);
 
+        this.canvasBoard = document.getElementById("canvas")
+
         this.onWin = () => {};
+        this.winBoard = document.getElementById("win")
+
         this.onGameOver = () => {};
+        this.gameOverBoard = document.getElementById("game-over")
 
         this.soundtrack = new Audio('./assets/sounds/soundtrack.mp3');
         this.gameOverSound = new Audio('./assets/sounds/game-over.wav');
@@ -48,7 +53,7 @@ class Game {
 
     startGame() {
         this.soundtrack.play();
-        this.timer.time = 0;
+        this.timer.setTimer();
         if (!this.intervalId) {
             this.intervalId = setInterval(() => {
                 this.clear();
@@ -90,7 +95,6 @@ class Game {
         const landingBlock = this.blocks.find(block => {
             return this.character.collidesWithBlock(block);
         })
-
         if (landingBlock) {
             this.character.follow(landingBlock);
         } else if (!this.character.isShrunk()) {
@@ -116,16 +120,17 @@ class Game {
         this.birds.some(bird => {
             const collision = this.character.collidesWithBirds(bird);
             if (collision) {
-                if (this.lives.length >= 1) {
-                    console.log("collision");
-                    this.lives = this.lives.splice(-1);
-                    this.hitSound.play();
+                console.log('entro')
+                if (this.lives.length > 1) {
+                    this.lives.pop();
+                    console.log(this.lives)
                 } else {
                     this.gameOver();
-                }
+                } 
             }
         })
     }
+
 
     onKeyEvent(event) {
         this.character.onKeyEvent(event);
@@ -133,6 +138,9 @@ class Game {
 
     win() {
         clearInterval(this.intervalId);
+        this.winBoard.style.display = "block";
+        this.canvasBoard.style.display = "none";
+        
         this.onWin();
         this.soundtrack.pause();
         this.winSound.play();
@@ -148,6 +156,8 @@ class Game {
 
     gameOver() {
         clearInterval(this.intervalId);
+        this.gameOverBoard.style.display = "block";
+        this.canvasBoard.style.display = "none";
 
         this.onGameOver();
         this.soundtrack.pause();

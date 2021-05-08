@@ -28,6 +28,8 @@ class Character {
     this.followingBlock = null;
 
     this.jumpSound = new Audio('./assets/sounds/jump.mp3');
+    this.canReceiveDamage = true
+    //this.collideBird = false
   }
 
   onKeyEvent(event) {
@@ -58,8 +60,8 @@ class Character {
           }
           break;
         case KEY_UP:
-          if (!this.isJumping()) {            
-            this.jumpSound.play();            
+          if (!this.isJumping()) {
+            this.jumpSound.play();
             this.followingBlock = undefined;
             this.y0 = 575;
             this.vy = -8;
@@ -118,22 +120,15 @@ class Character {
   }
 
   collidesWithBirds(bird) {
-    if (bird.vx > 0) {
-      const collide = (this.x + this.w >= bird.x &&
-        this.x <= bird.x + bird.w &&
-        this.y <= bird.y + bird.h &&
-        this.y + this.h >= bird.y
-      );
-      return collide
+    const collideX = bird.x + bird.w > this.x && bird.x < this.x + this.w
+    const collideY = bird.y < this.y + this.h && bird.y + bird.h > this.y
+
+    if (this.canReceiveDamage && collideX && collideY) {
+      this.canReceiveDamage = false
+      setTimeout(() => this.canReceiveDamage = true, 2000)
+      return true
     }
-    if (bird.vx < 0) {
-      const collide = (bird.x + bird.w >= this.x &&
-        bird.x <= this.x + this.w &&
-        this.y <= bird.y + bird.h &&
-        this.y + this.h >= bird.y
-      );
-      return collide
-    }
+    return false
   }
 
   follow(block) {
@@ -194,5 +189,11 @@ class Character {
     } else {
       this.img.frameIndex = 0;
     }
+  }
+
+  pause(){
+    this.vx = 0;
+    this.vy = 0;
+    this.g = 0;
   }
 }
