@@ -48,7 +48,7 @@ class Game {
         this.soundtrack = new Audio('./assets/sounds/soundtrack.mp3');
         this.gameOverSound = new Audio('./assets/sounds/game-over.wav');
         this.winSound = new Audio('./assets/sounds/win.mp3');
-        this.hitSound = new Audio('./assets/sounds/hit.mp3');
+        this.hitSound = new Audio('./assets/sounds/hit3.mp3');
     }
 
     startGame() {
@@ -120,12 +120,16 @@ class Game {
         this.birds.some(bird => {
             const collision = this.character.collidesWithBirds(bird);
             if (collision) {
-                console.log('entro')
                 if (this.lives.length > 1) {
+                    this.hitSound.play();                     
                     this.lives.pop();
-                    console.log(this.lives)
                 } else {
-                    this.gameOver();
+                    this.hitSound.play();                     
+                    this.lives.pop();                    
+                    setTimeout(() => {
+                        this.gameOver();                        
+                    }, 600)
+
                 } 
             }
         })
