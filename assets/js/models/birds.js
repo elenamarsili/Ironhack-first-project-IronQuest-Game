@@ -72,9 +72,4 @@ class Bird {
             this.img.frameIndex = 0
         }
     }
-
-    pause(){
-        this.vx = 0;
-        this.vy = 0;
-      }
 }

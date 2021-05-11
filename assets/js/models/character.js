@@ -29,7 +29,7 @@ class Character {
 
     this.jumpSound = new Audio('./assets/sounds/jump.mp3');
     this.canReceiveDamage = true
-    //this.collideBird = false
+    this.collideBird = false
   }
 
   onKeyEvent(event) {

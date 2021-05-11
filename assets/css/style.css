@@ -98,3 +98,18 @@ button:hover {
 #pause-button{
   text-align: center;
 }
+
+#level1 {
+  display: none;
+  background-image: url("./../img/level1.png");
+}
+
+#level2 {
+  display: none;
+  background-image: url("./../img/level2.png");
+}
+
+#level3 {
+  display: none;
+  background-image: url("./../img/level3.png");
+}

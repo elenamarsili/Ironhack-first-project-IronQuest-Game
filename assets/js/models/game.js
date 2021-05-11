@@ -1,9 +1,9 @@
 class Game {
-    constructor(canvasId) {
+    constructor(canvasId, level, timer, onWin) {
         const canvas = document.getElementById(canvasId);
         this.ctx = canvas.getContext("2d");
 
-  /*       this.level = level */
+        this.level = level
 
         this.intervalId = null;
 
@@ -23,21 +23,14 @@ class Game {
         this.block5 = new Block(this.ctx, -129, 5);
         this.block6 = new Block(this.ctx, -286, 6);
         this.block7 = new Block(this.ctx, -443, 4);
-      /*   this.block8 = new Block(this.ctx, 499, 5);
+        this.block8 = new Block(this.ctx, 499, 5);
         this.block9 = new Block(this.ctx, 342, 6);
         this.block10 = new Block(this.ctx, 185, 7);
         this.block11 = new Block(this.ctx, 28, 8);
         this.block12 = new Block(this.ctx, -129, 7);
         this.block13 = new Block(this.ctx, -286, 6);
         this.block14 = new Block(this.ctx, -443, 8);
-        this.block15 = new Block(this.ctx, 499, 5);
-        this.block16 = new Block(this.ctx, 342, 6);
-        this.block17 = new Block(this.ctx, 185, 7);
-        this.block18 = new Block(this.ctx, 28, 8);
-        this.block19 = new Block(this.ctx, -129, 7);
-        this.block20 = new Block(this.ctx, -286, 6);
-        this.block21 = new Block(this.ctx, -443, 8); */
-        this.blocks = [this.block1, this.block2, this.block3, this.block4, this.block5, this.block6, this.block7];
+        this.blocks = [];
 
         this.bird1 = new Bird(this.ctx, 550, 600);
         this.bird2 = new Bird(this.ctx, 393, 400);
@@ -47,15 +40,15 @@ class Game {
         this.bird6 = new Bird(this.ctx, -235, 300);
         this.bird7 = new Bird(this.ctx, -392, 600);
         this.bird8 = new Bird(this.ctx, -549, 400);
-        this.birds = [this.bird1, this.bird2, this.bird3, this.bird4, this.bird5, this.bird6, this.bird7, this.bird8];
+        this.birds = [];
 
         this.castle = new Castle(this.ctx);
 
-        this.timer = new Timer(this.ctx);
+        this.timer = timer || new Timer(this.ctx);
 
-        this.canvasBoard = document.getElementById("canvas")
+        this.canvasBoard = document.getElementById("canvas-layer")
 
-        this.onWin = () => {};
+        this.onWin = onWin;
         this.winBoard = document.getElementById("win")
 
         this.onGameOver = () => {};
@@ -68,56 +61,68 @@ class Game {
 
         this.pauseButton = document.getElementById('pause')
         this.isPaused = false
+
     }
 
-/*     checkLevel(){
+    checkLevel() {
         if (this.level === 1) {
             this.blocks = [this.block1, this.block2, this.block3, this.block4, this.block5, this.block6, this.block7];
             this.birds = [this.bird1, this.bird2, this.bird3, this.bird4, this.bird5, this.bird6, this.bird7, this.bird8];
-            this.background.img.src = "./assets/img/background2.png"
+            this.background.img.src = "./assets/img/background2.png";
+            this.blocks.forEach((block) => block.img.src = "./assets/img/tile.png")
         }
         if (this.level === 2) {
-            this.blocks = [this.block1, this.block2, this.block3, this.block4, this.block5, this.block6, this.block7];
+            this.blocks = [this.block8, this.block9, this.block10, this.block11, this.block12, this.block13, this.block14];
             this.birds = [this.bird1, this.bird2, this.bird3, this.bird4, this.bird5, this.bird6, this.bird7, this.bird8];
-            this.background.img.src = "./assets/img/background2.png"
+            this.background.img.src = "./assets/img/background3.png";
+            this.blocks.forEach((block) => block.img.src = "./assets/img/tile2.png")
         }
         if (this.level === 3) {
-            this.blocks = [this.block1, this.block2, this.block3, this.block4, this.block5, this.block6, this.block7];
+            this.blocks = [this.block8, this.block9, this.block10, this.block11, this.block12, this.block13, this.block14];
             this.birds = [this.bird1, this.bird2, this.bird3, this.bird4, this.bird5, this.bird6, this.bird7, this.bird8];
-            this.background.img.src = "./assets/img/background2.png"
+            this.birds.forEach((bird) => bird.vx = -5);
+            this.background.img.src = "./assets/img/background4.png";
+            this.blocks.forEach((block) => block.img.src = "./assets/img/tile3.png")
         }
-    } */
+    }
 
     startGame() {
-/*         this.checkLevel() */
-        if (!this.isPaused) {
-            this.soundtrack.play();
-            this.timer.setTimer();
-            if (!this.intervalId) {
+        if (!this.intervalId) {
+            this.checkLevel()
+            if (!this.isPaused) {
+                this.soundtrack.play();
+                this.timer.start();
+
                 this.intervalId = setInterval(() => {
                     this.clear();
                     this.move();
                     this.draw();
                     this.checkCollisionsWithBlocks();
                     this.checkCollisionsWithCastle();
-                    this.checkCollisionsWithBirds();
+                    this.checkCollisionsWithBirds()
                     this.fall();
                 }, 1000 / 60);
+
+            } else {
+                this.draw();
+                this.soundtrack.pause();
             }
-        } else {
-            this.draw();           
         }
+
     }
 
     pauseGame() {
         if (!this.isPaused) {
+            this.soundtrack.pause();
             this.isPaused = true;
             this.pauseButton.innerText = "Resume";
-            clearInterval(this.intervalId);
-            this.intervalId = null
+            this.timer.stop()
+            this.stop()
         } else {
+            this.soundtrack.play();
             this.isPaused = false;
             this.pauseButton.innerText = "Pause";
+            this.timer.start()
             this.startGame()
         }
     }
@@ -144,8 +149,6 @@ class Game {
         this.lives.forEach(life => life.draw());
     }
 
-
-
     checkCollisionsWithBlocks() {
         const landingBlock = this.blocks.find(block => {
             return this.character.collidesWithBlock(block);
@@ -165,61 +168,56 @@ class Game {
             this.character.vx = 0;
             this.character.vy = 0;
             this.character.g = 0;
-            setTimeout(() => {
-                this.win()
-            }, 500);
+            this.clear();
+            this.draw();
+            this.win();
         }
     }
 
     checkCollisionsWithBirds() {
-        this.birds.some(bird => {
-            const collision = this.character.collidesWithBirds(bird);
-            if (collision) {
-                if (this.lives.length > 1) {
-                    this.hitSound.play();
-                    this.lives.pop();
-                } else {
-                    this.hitSound.play();
-                    this.lives.pop();
-                    setTimeout(() => {
-                        this.gameOver();
-                    }, 600)
-
-                }
+        const collision = this.birds.some(bird => this.character.collidesWithBirds(bird))
+        if (collision) {
+            if (this.lives.length > 1) {
+                this.hitSound.play();
+                this.lives.pop();
+            } else {
+                this.hitSound.play();
+                this.lives.pop();
+                this.gameOver();
             }
-        })
+        }
     }
-
 
     onKeyEvent(event) {
         this.character.onKeyEvent(event);
     }
 
     win() {
-        clearInterval(this.intervalId);
-        this.winBoard.style.display = "block";
-        this.canvasBoard.style.display = "none";
-
-        this.onWin();
+        this.stop()
         this.soundtrack.pause();
         this.winSound.play();
+        this.onWin();
     }
 
     fall() {
         if (this.character.isFalling()) {
-            setTimeout(() => {
-                this.gameOver();
-            }, 600)
+            this.gameOver();
         }
     }
 
     gameOver() {
-        clearInterval(this.intervalId);
+        this.stop()
+
         this.gameOverBoard.style.display = "block";
         this.canvasBoard.style.display = "none";
 
         this.onGameOver();
         this.soundtrack.pause();
         this.gameOverSound.play();
+    }
+
+    stop() {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
     }
 }
