@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   game.onWin = onWin;
 
-
   const startButton = document.getElementById('start-button')
   startButton.addEventListener('click', () => {
     showLayer("level1");
@@ -57,15 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
     game.onKeyEvent(event);
   });
 
-
-
-  function onWin() {      
+  function onWin() {
     console.log("entra", game.level)
     if (game.level < 3) {
       nextLevel(game.level + 1)
     } else {
       document.getElementById("time").innerText = `${game.timer.twoDigitsNumber(game.timer.minutes)}:${game.timer.twoDigitsNumber(game.timer.seconds)}`;
-      showLayer("win") 
+      showLayer("win")
     }
   }
 

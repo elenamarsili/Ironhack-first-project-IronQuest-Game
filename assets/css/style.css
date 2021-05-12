@@ -2,6 +2,10 @@ body {
   background-image: url("../img/background1.png");
   display: flex;
   justify-content: center;
+  font-family: Roboto;
+  font-size: 40px;
+  font-weight: 800;
+  color: #ab4787;
 }
 
 .layer {
@@ -56,6 +60,12 @@ body {
   display: none;
   text-align: center;
 }
+/* 
+#score-board {
+  background-color: #DEEBF0;
+  text-align: center;
+  display: none;
+} */
 
 button {
   font-size: 30px;
@@ -71,11 +81,11 @@ button {
 
 #buttons {
   position: absolute;
-  margin: 600px 40px 30px 55px; 
+  margin: 600px 40px 30px 55px;
 }
 
 #back {
-  margin-top: 600px; 
+  margin-top: 600px;
 }
 
 button:hover {
@@ -95,7 +105,7 @@ button:hover {
   border-radius: 5px;
 }
 
-#pause-button{
+#pause-button {
   text-align: center;
 }
 
